@@ -32,7 +32,16 @@
                             <outlet property="delegate" destination="KiA-We-QZn" id="eaP-cI-FRL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="3dW-Zw-Mba"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Todoey" id="3dW-Zw-Mba">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lA5-Vo-1Do">
+                            <color key="tintColor" red="0.92149782180786133" green="0.92160838842391968" blue="0.92146027088165283" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="KiA-We-QZn" id="5St-cP-qEb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OUT-9A-HoD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
