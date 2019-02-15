@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeViewController {
 
     var todoItems: Results<Item>?
     let realm = try! Realm()
@@ -22,6 +22,8 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.rowHeight = 80.0
     }
     
 
@@ -33,7 +35,7 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
@@ -62,7 +64,7 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    //MARK - Add New Items
+    //MARK: - Add New Items
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -94,9 +96,17 @@ class TodoListViewController: UITableViewController {
         present(alert, animated:  true, completion: nil)
     }
 
-    func saveData(){
-       
-        tableView.reloadData()
+    //MARK: - Delete Item
+    override func updateModle(at indexPath: IndexPath) {
+        if let selecetedItem = self.todoItems?[indexPath.row]{
+            do {
+                try self.realm.write {
+                    self.realm.delete(selecetedItem)
+                }
+            } catch {
+                print("Error saving data \(error)")
+            }
+        }
     }
     
     
